@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Artists;
 use App\Repository\ArtistsRepository;
+use App\Form\ArtistType;
 
 #[Route('/artist')]
 
@@ -37,6 +39,27 @@ class ArtistController extends AbstractController
         ]);
     }
 
+    #[Route('/{id}/edit', name: 'artist_edit', methods: ['GET', 'PUT', 'POST'])]
+    public function edit(Request $request, Artists $artist, ArtistsRepository $artistRepository): Response
+    {
+        $form = $this->createForm(ArtistType::class, $artist);
+            
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $artistRepository->save($artist, true);
+
+            return $this->redirectToRoute('artist_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('artist/edit.html.twig', [
+            'artist' => $artist,
+            'form' => $form,
+        ]);
+    }
+
+
+    
 
     
 }

@@ -32,7 +32,8 @@ class ArtistController extends AbstractController
     #[Route('/{id}', name:'artist_show', methods: ['GET'])]
     public function show(int $id, ArtistsRepository $repository): Response
     {
-        $artist = $repository->find($id);
+        //var_dump($id);
+        $artist = $repository->find(intval($id));
 
         return $this->render('artist/show.html.twig', [
             'artist' => $artist,
@@ -57,6 +58,28 @@ class ArtistController extends AbstractController
             'form' => $form,
         ]);
     }
+
+    //A voir avec le prof
+    #[Route('/artist/new', name: 'artist_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, ArtistsRepository $artistRepository): Response
+    {
+        $artist = new Artists();
+        $form = $this->createForm(ArtistType::class, $artist);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $artistRepository->save($artist, true);
+
+            return $this->redirectToRoute('artist_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('artist/new.html.twig', [
+            'artist' => $artist,
+            'form' => $form,
+        ]);
+    }
+
+
 
 
     

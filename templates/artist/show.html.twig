@@ -6,5 +6,7 @@
     <h1>{{ artist.firstname }} {{ artist.lastname }}</h1>
     <div><a href="{{ path('artist_edit', {'id': artist.id}) }}">Modifier</a></div>
    <nav><a href="{{ path('artist_index') }}">Retour à l'index</a></nav>
+   <a href="{{ path('artist_new', {'id': artist.id}) }}">Voir</a>
+
 {% endblock %}
 

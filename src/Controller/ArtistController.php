@@ -10,6 +10,7 @@ use App\Entity\Artists;
 use App\Repository\ArtistsRepository;
 use App\Form\ArtistType;
 
+
 #[Route('/artist')]
 
 class ArtistController extends AbstractController
@@ -77,7 +78,20 @@ class ArtistController extends AbstractController
             'artist' => $artist,
             'form' => $form,
         ]);
+
     }
+
+    // A vérifier avec le prof ne marche que si je rajoute 'POST'
+    #[Route('/artist/{id}', name: 'artist_delete', methods: ['POST', 'DELETE'])]
+    public function delete(Request $request, Artists $artist, ArtistsRepository $artistRepository): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$artist->getId(), $request->request->get('_token'))) {
+            $artistRepository->remove($artist, true);
+        }
+    
+        return $this->redirectToRoute('artist_index', [], Response::HTTP_SEE_OTHER);
+    }
+    
 
 
 

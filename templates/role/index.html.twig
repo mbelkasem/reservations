@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Roles{% endblock %}
+
+{% block body %}
+    <h1>Liste des {{ resource }}</h1>
+
+    <ul>
+    {% for role in role %}
+        <li><a href="{{ path('role_show', { id: role.id }) }}">{{ role.role}}</a></li>
+    {% endfor %}
+    </ul>
+{% endblock %}

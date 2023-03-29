@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fiche d'un type{% endblock %}
+
+{% block body %}
+    <h1>{{ type.type|capitalize }}</h1>
+    <nav><a href="{{ path('type_index') }}">Retour à l'index</a></nav>
+{% endblock %}

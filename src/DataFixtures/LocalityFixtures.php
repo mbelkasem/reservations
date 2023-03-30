@@ -27,6 +27,7 @@ class LocalityFixtures extends Fixture
             $localities->setPostalCode($record['postal_code']); 
             $localities->setLocality($record['locality']);            
             $manager->persist($localities);
+            $this->addReference($record['locality'], $localities);
         }
 
         $manager->flush();

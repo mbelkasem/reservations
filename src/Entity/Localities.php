@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\LocalitiesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: LocalitiesRepository::class)]
@@ -19,6 +21,14 @@ class Localities
 
     #[ORM\Column(length: 60)]
     private ?string $locality = null;
+
+    #[ORM\OneToMany(mappedBy: 'locality', targetEntity: Locations::class)]
+    private Collection $locations;
+
+    public function __construct()
+    {
+        $this->locations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -45,6 +55,36 @@ class Localities
     public function setLocality(string $locality): self
     {
         $this->locality = $locality;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Locations>
+     */
+    public function getLocations(): Collection
+    {
+        return $this->locations;
+    }
+
+    public function addLocation(Locations $location): self
+    {
+        if (!$this->locations->contains($location)) {
+            $this->locations->add($location);
+            $location->setLocality($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLocation(Locations $location): self
+    {
+        if ($this->locations->removeElement($location)) {
+            // set the owning side to null (unless already changed)
+            if ($location->getLocality() === $this) {
+                $location->setLocality(null);
+            }
+        }
 
         return $this;
     }

@@ -19,7 +19,7 @@ class RoleController extends AbstractController
 
         return $this->render('role/index.html.twig', [
             'role' => $role,
-            'resource' => 'artistes',
+            'resource' => 'roles',
         ]);
 
     }  

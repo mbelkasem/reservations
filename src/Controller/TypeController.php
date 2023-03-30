@@ -21,7 +21,7 @@ class TypeController extends AbstractController
 
         return $this->render('type/index.html.twig', [
             'type' => $type,
-            'resource' => 'artistes',
+            'resource' => 'types',
         ]);
 
     }  

@@ -6,8 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Artists;
-use App\Repository\ArtistsRepository;
+use App\Entity\Artist;
+use App\Repository\ArtistRepository;
 use App\Form\ArtistType;
 
 
@@ -18,7 +18,7 @@ class ArtistController extends AbstractController
     
     //Affiche toutes la liste des Artites
     #[Route('/', name:'artist_index', methods: ['GET'])]
-    public function index(ArtistsRepository $repository): Response
+    public function index(ArtistRepository $repository): Response
     {
         $artists = $repository->findAll();
         //var_dump($artists);
@@ -31,7 +31,7 @@ class ArtistController extends AbstractController
     }  
 
     #[Route('/{id}', name:'artist_show', methods: ['GET'])]
-    public function show(int $id, ArtistsRepository $repository): Response
+    public function show(int $id, ArtistRepository $repository): Response
     {
         //var_dump($id);
         $artist = $repository->find(intval($id));
@@ -42,7 +42,7 @@ class ArtistController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'artist_edit', methods: ['GET', 'PUT', 'POST'])]
-    public function edit(Request $request, Artists $artist, ArtistsRepository $artistRepository): Response
+    public function edit(Request $request, Artist $artist, ArtistRepository $artistRepository): Response
     {
         $form = $this->createForm(ArtistType::class, $artist);
             
@@ -62,9 +62,9 @@ class ArtistController extends AbstractController
 
     //A voir avec le prof
     #[Route('/artist/new', name: 'artist_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ArtistsRepository $artistRepository): Response
+    public function new(Request $request, ArtistRepository $artistRepository): Response
     {
-        $artist = new Artists();
+        $artist = new Artist();
         $form = $this->createForm(ArtistType::class, $artist);
         $form->handleRequest($request);
 
@@ -83,7 +83,7 @@ class ArtistController extends AbstractController
 
     // A vérifier avec le prof ne marche que si je rajoute 'POST'
     #[Route('/artist/{id}', name: 'artist_delete', methods: ['POST', 'DELETE'])]
-    public function delete(Request $request, Artists $artist, ArtistsRepository $artistRepository): Response
+    public function delete(Request $request, Artist $artist, ArtistRepository $artistRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$artist->getId(), $request->request->get('_token'))) {
             $artistRepository->remove($artist, true);

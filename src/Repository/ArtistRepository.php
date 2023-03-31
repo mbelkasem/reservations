@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Artists;
+use App\Entity\Artist;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Artists>
+ * @extends ServiceEntityRepository<Artist>
  *
- * @method Artists|null find($id, $lockMode = null, $lockVersion = null)
- * @method Artists|null findOneBy(array $criteria, array $orderBy = null)
- * @method Artists[]    findAll()
- * @method Artists[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Artist|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Artist|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Artist[]    findAll()
+ * @method Artist[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ArtistsRepository extends ServiceEntityRepository
+class ArtistRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Artists::class);
+        parent::__construct($registry, Artist::class);
     }
 
-    public function save(Artists $entity, bool $flush = false): void
+    public function save(Artist $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class ArtistsRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Artists $entity, bool $flush = false): void
+    public function remove(Artist $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class ArtistsRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Artists[] Returns an array of Artists objects
+//     * @return Artist[] Returns an array of Artist objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class ArtistsRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Artists
+//    public function findOneBySomeField($value): ?Artist
 //    {
 //        return $this->createQueryBuilder('a')
 //            ->andWhere('a.exampleField = :val')

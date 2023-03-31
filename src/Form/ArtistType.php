@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Artists;
+use App\Entity\Artist;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -25,7 +25,7 @@ class ArtistType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Artists::class,
+            'data_class' => Artist::class,
         ]);
     }
 

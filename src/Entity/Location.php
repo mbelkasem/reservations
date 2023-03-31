@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Repository\LocationsRepository;
+use App\Repository\LocationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -10,11 +10,12 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\ORM\Mapping\JoinColumn;
 
 
-#[ORM\Entity(repositoryClass: LocationsRepository::class)]
+
+#[ORM\Entity(repositoryClass: LocationRepository::class)]
 #[ORM\Table(name:"locations")]
 #[UniqueEntity(fields:["slug"])]
 
-class Locations
+class Location
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -33,7 +34,7 @@ class Locations
     //Est-ce qu'on fair comme cela
     #[ORM\ManyToOne(inversedBy: 'locations')]
     #[ORM\JoinColumn(onDelete: 'RESTRICT')]
-    private ?localities $locality = null;    
+    private ?Locality $locality = null;    
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $website = null;
@@ -90,12 +91,12 @@ class Locations
         return $this;
     }
 
-    public function getLocality(): ?localities
+    public function getLocality(): ?locality
     {
         return $this->locality;
     }
 
-    public function setLocality(?localities $locality): self
+    public function setLocality(?locality $locality): self
     {
         $this->locality = $locality;
 

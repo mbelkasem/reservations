@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Locations;
+use App\Entity\Location;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Locations>
+ * @extends ServiceEntityRepository<Location>
  *
- * @method Locations|null find($id, $lockMode = null, $lockVersion = null)
- * @method Locations|null findOneBy(array $criteria, array $orderBy = null)
- * @method Locations[]    findAll()
- * @method Locations[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Location|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Location|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Location[]    findAll()
+ * @method Location[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class LocationsRepository extends ServiceEntityRepository
+class LocationRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Locations::class);
+        parent::__construct($registry, Location::class);
     }
 
-    public function save(Locations $entity, bool $flush = false): void
+    public function save(Location $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class LocationsRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Locations $entity, bool $flush = false): void
+    public function remove(Location $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class LocationsRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Locations[] Returns an array of Locations objects
+//     * @return Location[] Returns an array of Location objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class LocationsRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Locations
+//    public function findOneBySomeField($value): ?Location
 //    {
 //        return $this->createQueryBuilder('l')
 //            ->andWhere('l.exampleField = :val')

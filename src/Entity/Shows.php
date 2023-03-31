@@ -33,7 +33,7 @@ class Shows
 
     #[ORM\ManyToOne(inversedBy: 'shows')]
     #[ORM\JoinColumn(onDelete: 'RESTRICT')]
-    private ?locations $location = null;
+    private ?Location $location = null;
 
     #[ORM\Column]
     private ?bool $bookable = null;

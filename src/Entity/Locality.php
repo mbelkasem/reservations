@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\LocalitiesRepository;
+use App\Repository\LocalityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: LocalitiesRepository::class)]
+#[ORM\Entity(repositoryClass: LocalityRepository::class)]
 #[ORM\Table(name:"localities")]
-class Localities
+class Locality
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -22,7 +22,7 @@ class Localities
     #[ORM\Column(length: 60)]
     private ?string $locality = null;
 
-    #[ORM\OneToMany(mappedBy: 'locality', targetEntity: Locations::class)]
+    #[ORM\OneToMany(mappedBy: 'locality', targetEntity: Location::class)]
     private Collection $locations;
 
     public function __construct()
@@ -67,7 +67,7 @@ class Localities
         return $this->locations;
     }
 
-    public function addLocation(Locations $location): self
+    public function addLocation(Location $location): self
     {
         if (!$this->locations->contains($location)) {
             $this->locations->add($location);

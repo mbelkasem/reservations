@@ -4,7 +4,7 @@ namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use App\Entity\Localities;
+use App\Entity\Locality;
 
 class LocalityFixtures extends Fixture
 {
@@ -23,7 +23,7 @@ class LocalityFixtures extends Fixture
         ];
 
         foreach ($localities as $record) {
-            $localities = new Localities();
+            $localities = new Locality();
             $localities->setPostalCode($record['postal_code']); 
             $localities->setLocality($record['locality']);            
             $manager->persist($localities);

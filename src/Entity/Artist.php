@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\ArtistsRepository;
+use App\Repository\ArtistRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: ArtistsRepository::class)]
+#[ORM\Entity(repositoryClass: ArtistRepository::class)]
 #[ORM\Table(name:"artists")]
-class Artists
+class Artist
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

@@ -4,7 +4,7 @@ namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use App\Entity\Roles;
+use App\Entity\Role;
 
 class RoleFixtures extends Fixture
 {
@@ -20,7 +20,7 @@ class RoleFixtures extends Fixture
         ];
 
         foreach ($roles as $record) {
-            $role = new Roles();
+            $role = new Role();
             $role->setRole($record['role']);            
             $manager->persist($role);
         }

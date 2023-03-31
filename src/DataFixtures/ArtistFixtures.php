@@ -4,7 +4,7 @@ namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use App\Entity\Artists;
+use App\Entity\Artist;
 
 class ArtistFixtures extends Fixture
 {
@@ -27,7 +27,7 @@ class ArtistFixtures extends Fixture
         ];
         
         foreach ($artists as $record) {
-            $artist = new Artists();
+            $artist = new Artist();
             $artist->setFirstname($record['firstname']);
             $artist->setLastname($record['lastname']);
 

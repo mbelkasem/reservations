@@ -42,7 +42,7 @@ class Location
     #[ORM\Column(length: 30, nullable: true)]
     private ?string $phone = null;
 
-    #[ORM\OneToMany(mappedBy: 'location', targetEntity: Shows::class)]
+    #[ORM\OneToMany(mappedBy: 'location', targetEntity: Show::class)]
     private Collection $shows;
 
     public function __construct()
@@ -128,14 +128,14 @@ class Location
     }
 
     /**
-     * @return Collection<int, Shows>
+     * @return Collection<int, Show>
      */
     public function getShows(): Collection
     {
         return $this->shows;
     }
 
-    public function addShow(Shows $show): self
+    public function addShow(Show $show): self
     {
         if (!$this->shows->contains($show)) {
             $this->shows->add($show);
@@ -145,7 +145,7 @@ class Location
         return $this;
     }
 
-    public function removeShow(Shows $show): self
+    public function removeShow(Show $show): self
     {
         if ($this->shows->removeElement($show)) {
             // set the owning side to null (unless already changed)

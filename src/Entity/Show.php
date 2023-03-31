@@ -2,17 +2,17 @@
 
 namespace App\Entity;
 
-use App\Repository\ShowsRepository;
+use App\Repository\ShowRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\ORM\Mapping\JoinColumn;
 
 
-#[ORM\Entity(repositoryClass: ShowsRepository::class)]
+#[ORM\Entity(repositoryClass: ShowRepository::class)]
 #[ORM\Table(name:"shows")]
 #[UniqueEntity(fields:["slug"])]
-class Shows
+class Show
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

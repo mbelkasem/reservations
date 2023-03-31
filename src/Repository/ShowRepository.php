@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Shows;
+use App\Entity\Show;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Shows>
+ * @extends ServiceEntityRepository<Show>
  *
- * @method Shows|null find($id, $lockMode = null, $lockVersion = null)
- * @method Shows|null findOneBy(array $criteria, array $orderBy = null)
- * @method Shows[]    findAll()
- * @method Shows[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Show|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Show|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Show[]    findAll()
+ * @method Show[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ShowsRepository extends ServiceEntityRepository
+class ShowRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Shows::class);
+        parent::__construct($registry, Show::class);
     }
 
-    public function save(Shows $entity, bool $flush = false): void
+    public function save(Show $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class ShowsRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Shows $entity, bool $flush = false): void
+    public function remove(Show $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class ShowsRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Shows[] Returns an array of Shows objects
+//     * @return Show[] Returns an array of Show objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class ShowsRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Shows
+//    public function findOneBySomeField($value): ?Show
 //    {
 //        return $this->createQueryBuilder('s')
 //            ->andWhere('s.exampleField = :val')

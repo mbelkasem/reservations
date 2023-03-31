@@ -5,7 +5,7 @@ namespace App\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use App\Entity\Locations;
+use App\Entity\Location;
 use App\Entity\Show;
 use Cocur\Slugify\Slugify;
 
@@ -52,7 +52,7 @@ class ShowFixtures extends Fixture implements DependentFixtureInterface
         ];
         foreach ($locations as $record) {
             $slugify = new Slugify();            
-            $location = new Locations();
+            $location = new Location();
             $location->setSlug($slugify->slugify($record['designation']));
             $location->setDesignation($record['designation']);
             $location->setAdress($record['address']);

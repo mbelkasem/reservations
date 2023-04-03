@@ -18,7 +18,7 @@ class LocalityFixtures extends Fixture
             ['postal_code'=>'1020','locality'=>'Laeken'],
             ['postal_code'=>'1030','locality'=>'Schaerbeek'],
             ['postal_code'=>'1050','locality'=>'Ixelles'],
-            ['postal_code'=>'1070','locality'=>'Anderlecht'],
+            ['postal_code'=>'1170','locality'=>'Watermael-Boitsfort'],
                        
         ];
 
@@ -28,6 +28,8 @@ class LocalityFixtures extends Fixture
             $localities->setLocality($record['locality']);            
             $manager->persist($localities);
             $this->addReference($record['locality'], $localities);
+            
+
         }
 
         $manager->flush();

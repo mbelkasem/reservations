@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des spectacles{% endblock %}
+
+{% block body %}
+    <h1>Liste des {{ resource }}</h1>
+
+    <ul>
+    {% for show in shows %}
+        <li><a href="{{ path('show_show', { id: show.id }) }}">{{ show.title }}</a>
+            {% if show.bookable %}
+            <span>{{ show.price }} €</span>
+            {% endif %}
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock %}

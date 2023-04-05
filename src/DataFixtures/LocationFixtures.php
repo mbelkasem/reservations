@@ -9,6 +9,7 @@ use App\Entity\Location;
 use Cocur\Slugify\Slugify;
 
 
+
 class LocationFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
@@ -61,7 +62,7 @@ class LocationFixtures extends Fixture implements DependentFixtureInterface
             $location->setWebsite($record['website']);
             $location->setPhone($record['phone']);
             $manager->persist($location); 
-            
+            $this->addReference($location->getSlug(), $location);
             }
     
 
@@ -76,5 +77,6 @@ class LocationFixtures extends Fixture implements DependentFixtureInterface
             LocalityFixtures::class,
         ];
     }
+    
 
 }

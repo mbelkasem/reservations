@@ -7,6 +7,9 @@ use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use App\Entity\Show;
 use Cocur\Slugify\Slugify;
+use App\DataFixtures\Location;
+use App\Repository\LocationRepository;
+
 
 class ShowFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -64,18 +67,20 @@ class ShowFixtures extends Fixture implements DependentFixtureInterface
         foreach ($shows as $record) {
             $slugify = new Slugify();
             
-            $show = new Show();
+            $show = new Show();            
             $show->setSlug($slugify->slugify($record['title']));
             $show->setTitle($record['title']);
             $show->setDescription($record['description']);
             $show->setPosterUrl($record['poster_url']);
+            //var_dump($record['location_slug']);
             //Vérifier avec le prof
-            /*if($record['location_slug']) {
+            if($record['location_slug']) {
                 $show->setLocation($this->getReference($record['location_slug']));
-            }*/
+            }                   
 
             $show->setBookable($record['bookable']);
             $show->setPrice($record['price']);
+            $this->addReference($show->getSlug(), $show);            
             
             $manager->persist($show);
         }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ShowRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -40,6 +42,14 @@ class Show
 
     #[ORM\Column(type: Types::DECIMAL, precision: 12, scale: 2, nullable: true)]
     private ?string $price = null;
+
+    #[ORM\OneToMany(mappedBy: 'the_show', targetEntity: Representation::class, orphanRemoval: true)]
+    private Collection $representions;
+
+    public function __construct()
+    {
+        $this->representions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -94,12 +104,12 @@ class Show
         return $this;
     }
 
-    public function getLocation(): ?locations
+    public function getLocation(): ?Location
     {
         return $this->location;
     }
 
-    public function setLocation(?locations $location): self
+    public function setLocation(?Location $location): self
     {
         $this->location = $location;
 
@@ -126,6 +136,36 @@ class Show
     public function setPrice(?string $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Representation>
+     */
+    public function getRepresentions(): Collection
+    {
+        return $this->representions;
+    }
+
+    public function addRepresention(Representation $represention): self
+    {
+        if (!$this->representions->contains($represention)) {
+            $this->representions->add($represention);
+            $represention->setTheShow($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRepresention(Representation $represention): self
+    {
+        if ($this->representions->removeElement($represention)) {
+            // set the owning side to null (unless already changed)
+            if ($represention->getTheShow() === $this) {
+                $represention->setTheShow(null);
+            }
+        }
 
         return $this;
     }

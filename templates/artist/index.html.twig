@@ -5,22 +5,29 @@
 {% block body %}
     <h1>Liste des {{ resource }}</h1>
 
+     {% for message in app.flashes('success')%}
+     <div class="alert-sucess">
+        {{message}}
+    </div>
+
+{%endfor%}
+
     <table>
         <thead>
             <tr>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>Actions</th>
-            </tr>
+                <th>Firstname <br><br></th>
+                <th>Lastname <br><br></th>
+                <th>Actions <br><br></th>                
+            </tr>            
         </thead>
-        <tbody>
+        
+        <tbody >
         {% for artist in artists %}
             <tr>
-                <td>{{ artist.firstname }}</td>
-                <td>
-	    <a href="{{ path('artist_show', { id: artist.id }) }}">{{ artist.lastname }}</a>
-        {{ include('artist/_delete_form.html.twig') }}
-	</td>
+                <th>{{ artist.firstname }}</th>
+                <th><a href="{{ path('artist_show', { id: artist.id }) }}">{{ artist.lastname }}</a><th>
+                <th><div><a href="{{ path('artist_edit', {'id': artist.id}) }}"</a><button type="submit" id="artist_save" name="artist[save]">Modifier</button></div></th>
+                <th>{{ include('artist/_delete_form.html.twig') }}</th>
             </tr>
         {% endfor %}
         </tbody>

@@ -47,9 +47,11 @@ class ArtistController extends AbstractController
         $form = $this->createForm(ArtistType::class, $artist);
             
         $form->handleRequest($request);
-
+ 
         if ($form->isSubmitted() && $form->isValid()) {
             $artistRepository->save($artist, true);
+            $this->addFlash('success', 'The artist was successfully edited.');
+
 
             return $this->redirectToRoute('artist_index', [], Response::HTTP_SEE_OTHER);
         }

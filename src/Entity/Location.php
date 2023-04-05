@@ -31,7 +31,7 @@ class Location
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $adress = null;
 
-    //Est-ce qu'on fair comme cela
+    //Est-ce qu'on fait comme cela
     #[ORM\ManyToOne(inversedBy: 'locations')]
     #[ORM\JoinColumn(onDelete: 'RESTRICT')]
     private ?Locality $locality = null;    
@@ -45,9 +45,13 @@ class Location
     #[ORM\OneToMany(mappedBy: 'location', targetEntity: Show::class)]
     private Collection $shows;
 
+    #[ORM\OneToMany(mappedBy: 'the_location', targetEntity: Representation::class)]
+    private Collection $representations;
+
     public function __construct()
     {
         $this->shows = new ArrayCollection();
+        $this->representations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -151,6 +155,36 @@ class Location
             // set the owning side to null (unless already changed)
             if ($show->getLocation() === $this) {
                 $show->setLocation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Representation>
+     */
+    public function getRepresentations(): Collection
+    {
+        return $this->representations;
+    }
+
+    public function addRepresentation(Representation $representation): self
+    {
+        if (!$this->representations->contains($representation)) {
+            $this->representations->add($representation);
+            $representation->setTheLocation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRepresentation(Representation $representation): self
+    {
+        if ($this->representations->removeElement($representation)) {
+            // set the owning side to null (unless already changed)
+            if ($representation->getTheLocation() === $this) {
+                $representation->setTheLocation(null);
             }
         }
 

@@ -7,9 +7,9 @@
     
     <h2>Liste des artistes</h2>
     <ul>
-    {% for artist in type.artists %}
-        <li>{{ artist.firstname }} {{ artist.lastname }}</li>
-    {% endfor %}
+        {% for artistType in type.artists %}
+            <li>{{ artistType.artist.firstname }} {{ artistType.artist.lastname }}</li>
+        {% endfor %}
     </ul>
 
     <nav><a href="{{ path('type_index') }}">Retour à l'index</a></nav>

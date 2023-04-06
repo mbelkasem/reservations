@@ -37,7 +37,7 @@ class Artist
 
     private ?string $lastname = null;
 
-    #[ORM\ManyToMany(targetEntity: Type::class, inversedBy: 'artists')]
+    #[ORM\OneToMany(targetEntity: ArtistType::class, mappedBy: "artist", orphanRemoval: true)]
     private Collection $relation;
 
     public function __construct()

@@ -20,7 +20,7 @@ class Type
     #[ORM\Column(length: 60)]
     private ?string $type = null;
 
-    #[ORM\ManyToMany(targetEntity: Artist::class, mappedBy: 'relation')]
+    #[ORM\OneToMany(targetEntity: ArtistType::class, mappedBy: "type", orphanRemoval: true)]
     private Collection $artists;
 
     public function __construct()

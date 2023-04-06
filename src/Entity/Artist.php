@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ArtistRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -35,6 +37,14 @@ class Artist
 
     private ?string $lastname = null;
 
+    #[ORM\ManyToMany(targetEntity: Type::class, inversedBy: 'artists')]
+    private Collection $relation;
+
+    public function __construct()
+    {
+        $this->relation = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +70,30 @@ class Artist
     public function setLastname(string $lastname): self
     {
         $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Type>
+     */
+    public function getRelation(): Collection
+    {
+        return $this->relation;
+    }
+
+    public function addRelation(Type $relation): self
+    {
+        if (!$this->relation->contains($relation)) {
+            $this->relation->add($relation);
+        }
+
+        return $this;
+    }
+
+    public function removeRelation(Type $relation): self
+    {
+        $this->relation->removeElement($relation);
 
         return $this;
     }

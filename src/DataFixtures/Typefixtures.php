@@ -6,7 +6,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Type;
 
-class Typefixtures extends Fixture
+class Typefixtures extends Fixture 
 {
     public function load(ObjectManager $manager): void
     {
@@ -21,9 +21,9 @@ class Typefixtures extends Fixture
 
         foreach ($types as $record) {
             $type = new Type();
-            $type->setType($record['type']);
-            
+            $type->setType($record['type']);            
             $manager->persist($type);
+            $this->addReference($record['type'],$type);
         }
 
 

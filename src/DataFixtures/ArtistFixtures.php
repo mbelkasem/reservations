@@ -30,8 +30,10 @@ class ArtistFixtures extends Fixture
             $artist = new Artist();
             $artist->setFirstname($record['firstname']);
             $artist->setLastname($record['lastname']);
-
             $manager->persist($artist);
+            $this->addReference(
+                $record['firstname']."-".$record['lastname'],
+                $artist );
         }
 
 

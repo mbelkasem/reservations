@@ -46,9 +46,13 @@ class Show
     #[ORM\OneToMany(mappedBy: 'the_show', targetEntity: Representation::class, orphanRemoval: true)]
     private Collection $representions;
 
+    #[ORM\ManyToMany(targetEntity: ArtistType::class, inversedBy: 'shows')]
+    private Collection $artistTypes;
+
     public function __construct()
     {
         $this->representions = new ArrayCollection();
+        $this->artistTypes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -166,6 +170,30 @@ class Show
                 $represention->setTheShow(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ArtistType>
+     */
+    public function getArtistTypes(): Collection
+    {
+        return $this->artistTypes;
+    }
+
+    public function addArtistType(ArtistType $artistType): self
+    {
+        if (!$this->artistTypes->contains($artistType)) {
+            $this->artistTypes->add($artistType);
+        }
+
+        return $this;
+    }
+
+    public function removeArtistType(ArtistType $artistType): self
+    {
+        $this->artistTypes->removeElement($artistType);
 
         return $this;
     }

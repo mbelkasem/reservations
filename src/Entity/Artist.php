@@ -37,12 +37,14 @@ class Artist
 
     private ?string $lastname = null;
 
-    #[ORM\OneToMany(targetEntity: ArtistType::class, mappedBy: "artist", orphanRemoval: true)]
-    private Collection $relation;
+    #[ORM\OneToMany(mappedBy: 'artist', targetEntity: ArtistType::class)]
+    private Collection $artistTypes;
+
+   
 
     public function __construct()
     {
-        $this->relation = new ArrayCollection();
+        $this->artistTypes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -75,26 +77,36 @@ class Artist
     }
 
     /**
-     * @return Collection<int, Type>
+     * @return Collection<int, ArtistType>
      */
-    public function getRelation(): Collection
+    public function getArtistTypes(): Collection
     {
-        return $this->relation;
+        return $this->artistTypes;
     }
 
-    public function addRelation(Type $relation): self
+    public function addArtistType(ArtistType $artistType): self
     {
-        if (!$this->relation->contains($relation)) {
-            $this->relation->add($relation);
+        if (!$this->artistTypes->contains($artistType)) {
+            $this->artistTypes->add($artistType);
+            $artistType->setArtist($this);
         }
 
         return $this;
     }
 
-    public function removeRelation(Type $relation): self
+    public function removeArtistType(ArtistType $artistType): self
     {
-        $this->relation->removeElement($relation);
+        if ($this->artistTypes->removeElement($artistType)) {
+            // set the owning side to null (unless already changed)
+            if ($artistType->getArtist() === $this) {
+                $artistType->setArtist(null);
+            }
+        }
 
         return $this;
     }
+
+        
+
+    
 }

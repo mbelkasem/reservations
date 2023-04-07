@@ -29,10 +29,19 @@ class ShowController extends AbstractController
     public function show(int $id, ShowRepository $repository): Response
     {
        
-        $shows = $repository->find($id);
+        $show = $repository->find($id);
+
+        //Récupérer les artistes du spectacle et les grouper par type
+        $collaborateurs = [];
+
+        foreach($show->getArtistTypes() as $at) {
+            $collaborateurs[$at->getType()->getType()][] = $at->getArtist();
+        }
+
 
         return $this->render('show/show.html.twig', [
-            'show' => $shows,
+            'show' => $show,
+            'collaborateurs' => $collaborateurs,
         ]);
     }
 }

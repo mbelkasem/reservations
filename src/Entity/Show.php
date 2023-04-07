@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\ORM\Mapping\JoinColumn;
 
 
+
 #[ORM\Entity(repositoryClass: ShowRepository::class)]
 #[ORM\Table(name:"shows")]
 #[UniqueEntity(fields:["slug"])]
@@ -44,14 +45,14 @@ class Show
     private ?string $price = null;
 
     #[ORM\OneToMany(mappedBy: 'the_show', targetEntity: Representation::class, orphanRemoval: true)]
-    private Collection $representions;
+    private Collection $representations;
 
     #[ORM\ManyToMany(targetEntity: ArtistType::class, inversedBy: 'shows')]
     private Collection $artistTypes;
 
     public function __construct()
     {
-        $this->representions = new ArrayCollection();
+        $this->representations = new ArrayCollection();
         $this->artistTypes = new ArrayCollection();
     }
 
@@ -147,15 +148,15 @@ class Show
     /**
      * @return Collection<int, Representation>
      */
-    public function getRepresentions(): Collection
+    public function getRepresentations(): Collection
     {
-        return $this->representions;
+        return $this->representations;
     }
 
     public function addRepresention(Representation $represention): self
     {
-        if (!$this->representions->contains($represention)) {
-            $this->representions->add($represention);
+        if (!$this->representations->contains($represention)) {
+            $this->representations->add($represention);
             $represention->setTheShow($this);
         }
 
@@ -164,7 +165,7 @@ class Show
 
     public function removeRepresention(Representation $represention): self
     {
-        if ($this->representions->removeElement($represention)) {
+        if ($this->representations->removeElement($represention)) {
             // set the owning side to null (unless already changed)
             if ($represention->getTheShow() === $this) {
                 $represention->setTheShow(null);

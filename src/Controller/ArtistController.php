@@ -15,9 +15,9 @@ use App\Form\ArtistType;
 
 class ArtistController extends AbstractController
 {
-    
+
     //Affiche toutes la liste des Artites
-    #[Route('/', name:'artist_index', methods: ['GET'])]
+    #[Route('/', name: 'artist_index', methods: ['GET'])]
     public function index(ArtistRepository $repository): Response
     {
         $artists = $repository->findAll();
@@ -27,10 +27,9 @@ class ArtistController extends AbstractController
             'artists' => $artists,
             'resource' => 'artistes',
         ]);
+    }
 
-    }  
-
-    #[Route('/{id}', name:'artist_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'artist_show', methods: ['GET'])]
     public function show(int $id, ArtistRepository $repository): Response
     {
         //var_dump($id);
@@ -45,9 +44,9 @@ class ArtistController extends AbstractController
     public function edit(Request $request, Artist $artist, ArtistRepository $artistRepository): Response
     {
         $form = $this->createForm(ArtistType::class, $artist);
-            
+
         $form->handleRequest($request);
- 
+
         if ($form->isSubmitted() && $form->isValid()) {
             $artistRepository->save($artist, true);
             $this->addFlash('success', 'The artist was successfully edited.');
@@ -80,25 +79,16 @@ class ArtistController extends AbstractController
             'artist' => $artist,
             'form' => $form,
         ]);
-
     }
 
     // A vérifier avec le prof ne marche que si je rajoute 'POST'
     #[Route('/artist/{id}', name: 'artist_delete', methods: ['POST', 'DELETE'])]
     public function delete(Request $request, Artist $artist, ArtistRepository $artistRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$artist->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $artist->getId(), $request->request->get('_token'))) {
             $artistRepository->remove($artist, true);
         }
-    
+
         return $this->redirectToRoute('artist_index', [], Response::HTTP_SEE_OTHER);
     }
-    
-
-
-
-
-    
-
-    
 }

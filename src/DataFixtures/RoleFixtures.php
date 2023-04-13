@@ -15,14 +15,15 @@ class RoleFixtures extends Fixture
 
         $roles = [
             ['role'=>'admin'],
-            ['role'=>'member'],
-            ['role'=>'affiliate'],
+            ['role'=>'membre'],
+           
         ];
 
         foreach ($roles as $record) {
             $role = new Role();
             $role->setRole($record['role']);            
             $manager->persist($role);
+            $this->addReference($record['role'], $role);
         }
 
 

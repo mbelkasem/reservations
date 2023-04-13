@@ -12,7 +12,7 @@ use App\Form\ArtistType;
 #[Route('/locality')]
 class LocalityController extends AbstractController
 {
-    #[Route('/', name:'locality_index', methods: ['GET'])]
+    #[Route('/', name: 'locality_index', methods: ['GET'])]
     public function index(LocalityRepository $repository): Response
     {
         $locality = $repository->findAll();
@@ -22,18 +22,16 @@ class LocalityController extends AbstractController
             'locality' => $locality,
             'resource' => 'Localités',
         ]);
-}
+    }
 
-#[Route('/{id}', name:'locality_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'locality_show', methods: ['GET'])]
     public function show(int $id, LocalityRepository $repository): Response
     {
         //var_dump($id);
-        $locality= $repository->find($id);
+        $locality = $repository->find($id);
 
         return $this->render('locality/show.html.twig', [
             'locality' => $locality,
         ]);
     }
-
-
 }

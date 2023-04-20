@@ -12,9 +12,10 @@ use Doctrine\ORM\Mapping\JoinColumn;
 
 
 
+
 #[ORM\Entity(repositoryClass: ShowRepository::class)]
-#[ORM\Table(name:"shows")]
-#[UniqueEntity(fields:["slug"])]
+#[ORM\Table(name: "shows")]
+#[UniqueEntity(fields: ["slug"])]
 class Show
 {
     #[ORM\Id]
@@ -197,5 +198,19 @@ class Show
         $this->artistTypes->removeElement($artistType);
 
         return $this;
+    }
+
+
+    public function getAuthors(): Collection
+    {
+        $authors = new ArrayCollection();
+
+        foreach ($this->artistTypes as $collaboration) {
+            if ($collaboration->getArtistType($collaboration->getArtist())->getType() == "scénographe") {
+                $authors->add($collaboration->getArtist());
+            }
+        }
+
+        return $authors;
     }
 }

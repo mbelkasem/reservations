@@ -20,7 +20,7 @@ class ShowController extends AbstractController
 
         return $this->render('show/index.html.twig', [
             'shows' => $shows,
-            'resource' => 'shows',
+            'resource' => 'Liste des spectacles',
         ]);
 
     }  

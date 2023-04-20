@@ -1,21 +1,26 @@
-{% extends 'base.html.twig' %} {% block title %}Liste des artistes{% endblock %}
+{% extends 'base.html.twig' %} {% block title %}Liste des Artistes{% endblock %}
 {% block body %}
-<h1>Liste des artistes</h1>
+
+<link rel="stylesheet" type="text/css" href="{{ asset('asset/css/datatables.css') }}">
+<div class="page-header" >
+  <h1>Liste des Artistes</h1>
+</div>
 
 {% for message in app.flashes('success') %}
 <div class="alert-success">
   {{ message }}
-</div>
 {% endfor %}
 
-<table>
-  <thead>
-    <tr>
-      <th>Firstname</th>
-      <th>Lastname</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
+<table class="table_artist">
+  <div>
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+  </div>
 
   <tbody>
     {% for artist in artists %}
@@ -27,28 +32,29 @@
         }}</a>
       </td>
       <td>
-        <button style="display: inline-block">
-          <a
-            href="{{ path('artist_edit', { id: artist.id }) }}"
-            type="submit"
-            id="artist_save"
-            name="artist[save]"
-            >Modifier</a
-          >
-        </button>
-
-        <div style="display: inline-block">
-          {{ include("artist/_delete_form.html.twig") }}
-        </div>
+        <div class="btn-group btn-group-justified">
+          <a class="btn btn-primary"
+              href="{{ path('artist_edit', { id: artist.id }) }}"
+              type="submit"
+              id="artist_save"
+              name="artist[save]"
+              >Modifier</a
+            >           
+          
+            {{ include("artist/_delete_form.html.twig") }}
       </td>
+      
     </tr>
-    {% endfor %}
+    {% endfor %}   
+
   </tbody>
+  
 </table>
 <br />
 <br />
 
-<div>
-  <button><a href="{{ path('artist_new') }}">Ajouter</a></button>
+<div class="btn_ajouter">
+  <button type="button" class="btn btn-outline-secondary"><a href="{{ path('artist_new') }}">Ajouter</a></button>
 </div>
+
 {% endblock %}

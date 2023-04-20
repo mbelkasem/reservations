@@ -30,7 +30,7 @@ class ArtistType
     #[ORM\Column]
 
     private ?int $id = null;
-   
+
     #[ORM\ManyToOne(targetEntity: Type::class, inversedBy: "artists")]
     #[ORM\JoinColumn(nullable: false)]
     private ?Type $type = null;
@@ -50,7 +50,7 @@ class ArtistType
     public function getId(): ?int
     {
         return $this->id;
-    }    
+    }
 
     public function getType(): ?Type
     {
@@ -102,4 +102,18 @@ class ArtistType
 
         return $this;
     }
+    public function getArtistType(Artist $artist): Type
+        {
+        
+
+            if ($this->artist === $artist) {
+                return $this->type;
+            }
+    
+            return null;
+            
+    
+            
+        }
+
 }

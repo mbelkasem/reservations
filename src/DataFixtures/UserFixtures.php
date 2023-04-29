@@ -55,7 +55,8 @@ class UserFixtures extends Fixture
                 $user, $record['password']
             );
             $user->setPassword($hashedPassword);
-            $manager->persist($user);            
+            $manager->persist($user);
+            $this->addReference($record['login'], $user);           
 
         }
 

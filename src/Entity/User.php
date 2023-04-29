@@ -3,12 +3,16 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name:"users")]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -39,6 +43,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 2)]
     private ?string $language = null;
+
+   
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: RepresentationUser::class, orphanRemoval: true)]
+    private Collection $representationUsers;
+
+    #[ORM\Column]
+    private ?bool $is_verified = false;
+
+    public function __construct()
+    {
+        $this->representationUsers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -154,6 +170,49 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLanguage(string $language): self
     {
         $this->language = $language;
+
+        return $this;
+    }
+
+   
+    /**
+     * @return Collection<int, RepresentationUser>
+     */
+    public function getRepresentationUsers(): Collection
+    {
+        return $this->representationUsers;
+    }
+
+    public function addRepresentationUser(RepresentationUser $representationUser): self
+    {
+        if (!$this->representationUsers->contains($representationUser)) {
+            $this->representationUsers->add($representationUser);
+            $representationUser->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRepresentationUser(RepresentationUser $representationUser): self
+    {
+        if ($this->representationUsers->removeElement($representationUser)) {
+            // set the owning side to null (unless already changed)
+            if ($representationUser->getUser() === $this) {
+                $representationUser->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getIsVerified(): ?bool
+    {
+        return $this->is_verified;
+    }
+
+    public function setIsVerified(bool $is_verified): self
+    {
+        $this->is_verified = $is_verified;
 
         return $this;
     }

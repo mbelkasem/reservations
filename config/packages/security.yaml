@@ -22,14 +22,14 @@ security:
             form_login:
                 login_path: app_login	# Show Login form
                 check_path: app_login	# Handle Login form
-                default_target_path: app_artits_index
+                default_target_path: /show
                 enable_csrf: true
 
             logout:
                 path: app_logout
 
                 # where to redirect after logout
-                target: app_artits_index
+                target: /main
 
             # configure the maximum login attempts
             login_throttling:

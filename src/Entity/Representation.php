@@ -32,9 +32,13 @@ class Representation
     #[ORM\OneToMany(mappedBy: 'representation', targetEntity: Reservation::class, orphanRemoval: true)]
     private Collection $reservations;
 
+    #[ORM\OneToMany(mappedBy: 'representation', targetEntity: RepresentationUser::class, orphanRemoval: true)]
+    private Collection $representationUsers;
+
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
+        $this->representationUsers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -102,6 +106,36 @@ class Representation
             // set the owning side to null (unless already changed)
             if ($reservation->getRepresentation() === $this) {
                 $reservation->setRepresentation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, RepresentationUser>
+     */
+    public function getRepresentationUsers(): Collection
+    {
+        return $this->representationUsers;
+    }
+
+    public function addRepresentationUser(RepresentationUser $representationUser): self
+    {
+        if (!$this->representationUsers->contains($representationUser)) {
+            $this->representationUsers->add($representationUser);
+            $representationUser->setRepresentation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRepresentationUser(RepresentationUser $representationUser): self
+    {
+        if ($this->representationUsers->removeElement($representationUser)) {
+            // set the owning side to null (unless already changed)
+            if ($representationUser->getRepresentation() === $this) {
+                $representationUser->setRepresentation(null);
             }
         }
 

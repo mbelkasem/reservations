@@ -48,7 +48,7 @@ class ShowFixtures extends Fixture implements DependentFixtureInterface
                     . 'quatorze nouvelles chansons mêlées à de petits textes humoristiques et '
                     . 'à quelques fortes images poétiques.',
                 'poster_url'=>'claudebelgesaison220.jpg',
-                'location_slug'=>null,
+                'location_slug'=>'dexia-art-center',
                 'bookable'=>false,
                 'price'=>5.50,
             ],

@@ -1,40 +1,19 @@
 {% extends 'base.html.twig' %} {% block title %}{{ resource }}{% endblock %} 
 {%block body %} 
 {% include 'includes/header.html.twig' %}
+
 <link
   rel="stylesheet"
   type="text/css"
   href="{{ asset('asset/css/datatables.css') }}"
 />
 
-<link
-  rel="stylesheet"
-  href="{{
-    asset('https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css')
-  }}"
-/>
-<script src="{{ asset('https://code.jquery.com/jquery-3.5.1.js') }}"></script>
-<script src="{{
-    asset('https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js')
-  }}"></script>
-<script src="{{
-    asset('https://cdn.datatables.net/1.13.4/js/dataTables.responsive.min.js')
-  }}"></script>
-
 <script>
   $(document).ready(function () {
     $("#table_shows").DataTable();
   });
 
-  htmlbodyHeightUpdate()
-        $( window ).resize(function() {
-            htmlbodyHeightUpdate()
-        });
-        $( window ).scroll(function() {
-            height2 = $('.main').height()
-            htmlbodyHeightUpdate()
-        });
-    });
+  
 </script>
     {% include 'includes/menu.html.twig' %}
 <div class="wrapper">

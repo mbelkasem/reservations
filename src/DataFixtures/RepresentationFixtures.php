@@ -15,41 +15,53 @@ class RepresentationFixtures extends Fixture implements DependentFixtureInterfac
     {
         // $product = new Product();
         // $manager->persist($product);
-
         $representations = [
             [
-                'the_location'=>'espace-delvaux-la-venerie',
-                'the_show'=>'ayiti',
-                'schedule'=>'2012-10-12 13:30',
+                'ref'=>'ayiti-201810121330',
+                'show'=>'ayiti',
+                'location'=>'espace-delvaux-la-venerie',
+                'schedule'=> ('2018-10-12 13:30:00'),
             ],
             [
-                'the_location'=>'dexia-art-center',
-                'the_show'=>'ayiti',
-                'schedule'=>'2012-10-12 20:30',
+                'ref'=>'ayiti-201810122030',
+                'show'=>'ayiti',
+                'location'=>'dexia-art-center',
+                'schedule'=>('2018-10-12 20:30:00'),
             ],
             [
-                'the_location'=>null,
-                'the_show'=>'cible-mouvante',
-                'schedule'=>'2012-10-02 20:30',
+                'ref'=>'cible-mouvante-201810122030',
+                'show'=>'cible-mouvante',
+                'location'=>null,
+                'schedule'=>('2018-10-12 20:30:00'),
             ],
             [
-                'the_location'=>null,
-                'the_show'=>'ceci-n-est-pas-un-chanteur-belge',
-                'schedule'=>'2012-10-16 20:30',
+                'ref'=>'cible-mouvante-201810142030',
+                'show'=>'cible-mouvante',
+                'location'=>null,
+                'schedule'=>('2018-10-14 20:30:00'),
             ],
+            [
+                'ref'=>'chanteur-belge-201810142030',
+                'show'=>'ceci-n-est-pas-un-chanteur-belge',
+                'location'=>null,
+                'schedule'=>('2018-10-14 20:30:00'),
+            ],             
         ];
+
+
 
         foreach ($representations as $record) {           
             $representation = new Representation();
             
-           if($record['the_location']) {
-                $representation->setTheLocation($this->getReference($record['the_location']));
+           if($record['location']) {
+                $representation->setTheLocation($this->getReference($record['location']));
             }
             
-            $representation->setTheShow($this->getReference($record['the_show']));
+            $representation->setTheShow($this->getReference($record['show']));
             $representation->setSchedule(new \DateTime($record['schedule']));
                         
             $manager->persist($representation);
+            $this->addReference($record['ref'], $representation);
         }
 
 
